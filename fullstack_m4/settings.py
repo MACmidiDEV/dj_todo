@@ -26,7 +26,9 @@ SECRET_KEY = 'ybylcdt4pxghz&sahw!+m(*w(v#-7vde+_wh0try3vqe&i+n74'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'https://m4-fullstack-final.herokuapp.com'
+]
 
 
 # Application definition
