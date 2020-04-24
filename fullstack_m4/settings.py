@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 import dj_database_url
 
+if os.environ.get('DEV'):
+    dev = True
+else:
+    dev = False    
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,13 +30,16 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'ybylcdt4pxghz&sahw!+m(*w(v#-7vde+_wh0
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = dev
 
 # 'https://m4-fullstack-final.herokuapp.com'
 ALLOWED_HOSTS = [
     os.environ.get('HOSTNAME')    
 ]
 
+host = os.environ.get('SITE_HOST')
+if host:
+    ALLOWED_HOSTS.append(host)
 
 # Application definition
 
@@ -79,15 +87,17 @@ WSGI_APPLICATION = 'fullstack_m4.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
+if dev: 
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+else:
+    DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
+# DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL')) }
 # DATABASES = {'default': dj_database_url.parse("DATABASE_URL: postgres://nbocesllsbiabz:49c4c1ee91efc6f9736a28a825973f4d2773e3373bb446af6d524005eaeaf236@ec2-34-233-186-251.compute-1.amazonaws.com:5432/d229644dedmdr7")}
-DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL')) }
 
 
 
