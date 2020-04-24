@@ -23,16 +23,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'ybylcdt4pxghz&sahw!+m(*w(v#-7vde+_wh0try3vqe&i+n74')
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# 'https://m4-fullstack-final.herokuapp.com'
 ALLOWED_HOSTS = [
-    'https://m4-fullstack-final.herokuapp.com'
+    os.environ.get('HOSTNAME')    
 ]
 
-host = os.environ.get('SITE_HOST')
-if host:
-    ALLOWED_HOSTS.append(host)
 
 # Application definition
 
@@ -87,7 +86,9 @@ WSGI_APPLICATION = 'fullstack_m4.wsgi.application'
 #     }
 # }
 
-DATABASES = {'default': dj_database_url.parse("DATABASE_URL: postgres://nbocesllsbiabz:49c4c1ee91efc6f9736a28a825973f4d2773e3373bb446af6d524005eaeaf236@ec2-34-233-186-251.compute-1.amazonaws.com:5432/d229644dedmdr7")}
+# DATABASES = {'default': dj_database_url.parse("DATABASE_URL: postgres://nbocesllsbiabz:49c4c1ee91efc6f9736a28a825973f4d2773e3373bb446af6d524005eaeaf236@ec2-34-233-186-251.compute-1.amazonaws.com:5432/d229644dedmdr7")}
+DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL')) }
+
 
 
 # Password validation
